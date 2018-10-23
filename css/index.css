@@ -1,0 +1,262 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+/*首页*/
+.leftDiv{
+	background-color: #282830;
+	padding: 0px;
+}
+
+.rightDiv{
+	background-color: #EEEEEE;
+	padding: 0px;
+}
+
+.leftDiv-top{
+	height: 50px;
+	width: 100%;
+	background-color: #3D556D;	
+}
+.leftDiv-top img{
+	width: 40px;
+	height: 40px;
+	margin-left: 20px;
+	margin-top: 5px;
+}
+.leftDiv-top div{
+	display: inline-block;
+}
+.leftDiv-top span{
+	color: #fff;
+	height: 50px;
+	display: inline-block;
+	line-height: 50px;
+}
+
+/*首页左侧下半部分*/
+.leftDiv-bottom{
+	list-style: none;
+	margin-top: 40px;
+}
+.leftDiv-bottom li{
+	height: 40px;
+	border-bottom: 1px solid #CCC;
+	line-height: 40px;
+	padding-left: 30px;
+}
+.leftDiv-bottom li a{
+	color: #ccc;
+}
+.leftDiv-bottom li span{
+	display: inline-block;
+	width: 90px;
+	margin-left: 5px;
+}
+
+/*右侧上半部分*/
+.rightDiv-top div{
+	height: 50px;
+}
+.rightDiv-top{
+	background-color: #fff;
+	height: 50px;
+}
+.rightDiv-left{
+	padding: 0px;
+}
+.rightDiv-left i{
+	margin-left: 30px;
+	display: inline-block;
+	margin-top: 10px;
+	font-size: 20px;
+}
+.rightDiv-left span{
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: red;
+	color: #fff;
+	text-align: center;
+	border-radius: 50%;
+	position:relative;
+	left: -18px;
+	top: -8px; 
+	font-size: 12px;
+}
+.rightDiv-right{
+	padding: 0px;
+	line-height: 50px;
+}
+.rightDiv-right div{
+	display: inline-block;
+}
+.rightDiv-right img{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+/*首页内容区上半部分*/
+.content-top{
+	width: 100%;
+	height: 250px;
+	padding: 20px;
+}
+.content-top div{
+	height: 100%;
+}
+div.one,div.two,div.thr{
+	height: 55px;
+	background-color: #fff;
+	margin-top: 10px;
+}
+
+div.cicleDiv{
+	width: 40px;
+	height: 40px;
+	background-color: #63BA12;
+	border-radius: 50%;
+	display: inline-block;
+	margin-top: 8px;
+	margin-left: 20px;
+	text-align: center;
+}
+div.cicleDiv i{
+	width: 30px;
+	height: 30px;
+	color: #fff;
+	font-size: 25px;
+}
+div.one span,div.two span,div.thr span{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 20px;
+}
+div.cicleDiv1{
+	background-color:purple;
+}
+div.cicleDiv2{
+	background-color: lightblue;
+}
+
+.content-center div.zhexian{
+	background-color: #fff;
+	margin-top: 8px;
+	height: 188px;
+}
+div.contentright-top,div.contentright-bottom{
+	height: 85px;
+	background-color: #fff;
+}
+.contentright-top{
+	margin-top: 10px;
+}
+.contentright-bottom{
+	margin-top: 15px;
+}
+
+/*首页内容区下半部分*/
+.content-bottom{
+	width: 100%;
+	height: 250px;
+	padding: 20px;
+}
+.content-bottom div{
+	height: 100%;
+}
+div.contentBottom-left,div.contentBottom-right{
+	height: 250px;
+}
+.contentBottom-left div,.contentBottom-right div{
+	background-color: #fff;
+	height: 240px;
+	margin-top: 5px;
+}
+
+/*栏目内容区*/
+.lanmuContent{
+	width: 98%;
+	background-color: #fff;
+	margin-top: 15px;
+}
+div.btns{
+	margin-left: 20px;
+	margin-top: 15px;
+}
+button{
+	margin-left: 10px;
+}
+.lanmuContent table{
+	width: 90%;
+	margin: 20px;
+}
+.lanmuContent table th,.lanmuContent table td{
+	text-align: center;
+}
+
+/*资讯管理页面*/
+.zixunContent{
+	width: 98%;
+	background-color: #fff;
+	margin-top: 15px;
+}
+.zixunContent table td{
+	text-align: center;
+}
+.zixunContent .modal{
+	height: 550px;
+	width: 30%;
+}
+.zixun-content ul li{
+	list-style: none;
+}
+/*用户管理页面*/
+.userContent{
+	width: 98%;
+	margin-top: 15px;
+	padding: 5px;
+}
+.userbtn{
+	width: 80px;
+	margin-bottom: 10px;
+}
+.usercard{
+	width: 250px;
+	height: 350px;
+	background-color: #fff;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 20px;
+	float: left;
+}
+.user-header{
+	width: 55%;
+	height: 115px;
+	margin-left: 50px;
+	background-color: #ccc;
+	border-radius: 50%;
+}
+.user-header img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.user-table{
+	margin-top: 50px;
+	margin-left: 20px;
+}
+.user-table tr td{
+	font-weight: bold;
+}
+.modal-content ul li{
+	list-style: none;
+}
+div.modal{
+	background-color: #fff;
+	width: 50%;
+	height: 400px;
+	margin: 0 auto;
+}

@@ -1,0 +1,301 @@
+<div class="zixunContent">
+	<div class="zixun">
+		<button type="button" class="btn btn-success zixunbtn">新增</button>
+		<button type="button" class="btn btn-danger zixundelete">删除</button>
+	</div>
+ 	<div class="tab">
+		<table class="table  table-bordered">
+			<tr>
+				<td>编号</td>
+				<td>文章标题</td>
+				<td>所属栏目</td>
+				<td>背景音乐</td>
+				<td>作者</td>
+				<td>发布时间</td>
+				<td>阅读次数</td>
+				<td>操作</td>
+				<td>id</td>
+			</tr>
+			<tr class="hiddenTr">
+				<td><input type="checkbox"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<button class="exit">修改</button>
+					<button class="delete">删除</button>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- 模态框 -->
+	<div class="modal">
+		<div class="modal-header">
+			<div class="zixundiv1">
+				<span><</span><button type="button" class="btn btn-link boxlink">返回</button>
+			</div>
+			<div class="zixundiv2">
+				<text>添加用户</text>
+			</div>
+		</div>
+		<div class="zixun-content">
+			<ul>
+				<li><text>标题</text></li>
+				<li><input type="text" class="user"/></li>
+				<li><text>所属栏目</text></li>
+				<li>
+					<select name="" id="">	
+						<option value="">请选择所属栏目</option>
+						
+					</select>
+				</li>
+				<li><text>列表样式</text></li>
+				<li>
+					<div class="liediv">
+						<img src="./images/u86.jpg" alt="列表样式1" flag="0"/>
+					</div>
+					<div class="liediv">
+						<img src="./images/u85.jpg" alt="列表样式2" flag="1"/>
+					</div>
+				</li>
+				<li><text>列表缩略图</text></li>
+				<li>
+					<div class="row">
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="./images/u46.png" alt="点击获取缩略图">
+					    </a>
+					  </div>
+					</div>
+				</li>
+				<li><text>正文</text></li>
+				<li>
+					<textarea name="" rows="5" cols="20"></textarea>
+				</li>
+				<li><text>源码</text></li>
+				<li>
+					<input type="text" class="yuanma"/>
+				</li>
+				<li><button class="btn btn-success boxsubmit">确认</button></li>
+			</ul>
+		</div>
+	</div> 
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		var dates;
+		var dd;
+		//获取栏目信息	
+		var list;
+		var url="http://120.78.164.247:8099/index/findAllCategory";
+		$.get(url,function(result){
+			list=result.data;
+		});
+
+		//查找
+		var hiddenTr=$('.hiddenTr');
+		function shujujiazai() {
+			 var form={
+			 	page:14,
+			 	pageSize:10,
+			 	 // categoryId:dd
+			 }
+			var url = "http://120.78.164.247:8099/manager/article/findArticle";
+			$.getJSON(url,form,function(result) {
+				dates=result.data.list;
+				dates.forEach(function(item,index){
+					var dte=item;
+					// console.log(dte);
+					// 拷贝
+					var cloneTr =hiddenTr.clone(true).removeAttr('class');
+					// 追加拷贝行
+					var b=hiddenTr.parent().append(cloneTr);
+					//有无父栏目
+					if(dte.category){
+						$(cloneTr.children()[2]).text(item.category.name);
+					}
+					//相应行赋值
+					$(cloneTr.children()[1]).text(item.title);
+					$(cloneTr.children()[4]).text(item.author);
+					$(cloneTr.children()[5]).text(item.publishtime);
+					$(cloneTr.children()[6]).text(item.readtimes);
+					$(cloneTr.children()[8]).text(item.id);
+				})
+			});
+		};
+	 	shujujiazai();
+
+ 		//行内删除
+		$('.delete').click(function(event){
+			var id;
+			var tr=$(event.target).parent().parent();
+			tr.children().each(function(index,item){
+				if(index==8){
+					id=parseInt((item).innerText);
+				}
+			})
+			var url = "http://120.78.164.247:8099/manager/article/deleteArticleById";
+				$.getJSON(url,{id:id},function(result){
+					if(result.status == 200) {
+						$('.right #one').load('pages/zixun.html')
+					}
+				})
+		});
+
+		//批量删除
+		$('.zixundelete').click(function(){
+			var ids=[];
+			var inputs=$('input').each(function(index,item){
+				if(item.checked){
+					var a=$(item).parent();
+					var rr=a.parent()[0].children;
+					Array.prototype.slice.call(rr,0).forEach(function(item,index){
+						if(index==8){
+							ids.push(item.innerText);
+							
+						}
+					})					
+				}
+			});
+			
+			if(ids.length>0){
+				var id=ids.toString();
+				// var formd=Qs.stringify({ids:id},{arrayFormat:'repeat'});
+				var formd={
+					ids:id
+				}
+				var url = "http://120.78.164.247:8099/manager/article/batchDeleteArticle";
+					
+				$.post(url,formd,function(result){
+					if(result.status == 200) {
+						$('.right #one').load('pages/zixun.html')	
+					}
+				})	
+			}
+		});
+
+		//模态框
+		$('.boxlink').click(function(){
+			$('.modal,.meng').css({
+				'display':'none',
+			});
+		})
+		$('.zixunbtn').click(function(){
+		if(list.length>1){
+			var len=list.length;
+			for(var i=0;i<len;i++){
+				var opt=$('.zixun-content select option:first').clone(true);
+				var aa=$('.zixun-content select').append(opt);
+				opt.val(list[i].id)
+				opt[0].innerHTML=list[i].name
+			}
+			add();
+		}
+		
+		$('.modal,.meng').css({
+			'display':'block',
+			
+		});
+	})
+
+		//修改
+		$('.exit').click(function(event){
+			var idd=0;
+				var tr=$(event.target).parent().parent();
+				tr.children().each(function(index,item){
+					if(index==8){
+						idd=parseInt((item).innerText);
+					}
+				});
+				var shuju=dates;
+				shuju.forEach(function(item,index){
+					
+					if(item.id==idd){
+						if(parseInt(item.liststyle)=='0'){
+							$('.zixun-content div.liediv img:first').attr('flag','0');
+						}else if(parseInt(item.liststyle)=='1'){
+							$('.zixun-content div.liediv img:last').attr('flag','1');
+						}
+						
+						$('.zixun-content li textarea')[0].value=item.content;
+						$('.zixun-content input.user')[0].value=item.title;
+						$('.zixun-content input.yuanma')[0].value=item.source
+					}
+					
+				})
+				if(list.length>1){
+				var len=list.length;
+				for(var i=0;i<len;i++){
+					var opt=$('.zixun-content select option:first').clone(true);
+					var aa=$('.zixun-content select').append(opt);
+					opt.val(list[i].id)
+					opt[0].innerHTML=list[i].name
+				}
+				
+			}
+			add(idd);		
+			$('.modal,.meng').css({
+				'display':'block',			
+			});
+		});
+
+		//获取所有列
+		function add(a){
+			var subarr={};
+			$('.zixun-content div.liediv img').each(function(index,item){
+					$(item).click(function(){
+						console.log('flag',item)
+						console.log('flag',$(item).attr('flag'))
+						subarr.list=$(item).attr('flag')
+					})
+				})
+			$('.boxsubmit').click(function(){
+				subarr.user=$('.zixun-content input.user')[0].value;
+				subarr.yuan=$('.zixun-content input.yuanma')[0].value;
+				subarr.lanmu=$('.zixun-content select option:selected').val();
+				subarr.content=$('.zixun-content li textarea')[0].value;
+				subarr.img=$('.zixun-content .row a img')[0].src;
+				//console.log('la',a);
+				if(a){
+					console.log('idd',a)
+					var form={
+						id:a,
+						title:subarr.user,
+						liststyle:subarr.list,
+						content:subarr.content,
+						source:'',
+						categoryId:subarr.lanmu					
+					}
+				}else{
+					var form={
+						title:subarr.user,
+						liststyle:subarr.list,
+						content:subarr.content,
+						source:subarr.yuan,
+						categoryId:subarr.lanmu
+					}
+				}
+				// console.log('form',form)
+				var url="http://120.78.164.247:8099/manager/article/saveOrUpdateArticle";
+				$.post(url,form,function(result){
+					console.log('tianjia',result);
+					if(result.status == 200) {
+							$('.right #one').load('pages/zixun.html')
+						}
+				})
+				$('.modal,.meng').css({
+					'display':'none',
+					
+				});
+			})
+		};
+
+		})
+</script>
+
